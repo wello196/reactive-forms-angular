@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Login</h2>
+
+  <div class="control-row">
+    <div class="control no-margin">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+    </div>
+    <!-- [ngClass]="{
+        'border border-success': form.get('email')?.valid,
+        'border border-danger': emailIsInvalid
+        }" -->
+
+    <div class="control no-margin">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+
+    <button type="submit" class="button">Login</button>
+  </div>
+
+  @if(emailIsInvalid){
+    @if(form.get('email')?.getError('required')){
+      <p class="error">Email is required</p>
+    }
+    @if(form.get('email')?.getError('email')){
+      <p class="error">Email is not valid</p>
+    }
+  }
+
+  @if(passwordIsInvalid){
+    @if(form.get('password')?.getError('required')){
+      <p class="error">Password is required</p>
+    }
+    @if(form.get('password')?.getError('minlength')){
+      <p class="error">Password must be at least 6 characters</p>
+    }
+    @if(form.get('password')?.getError('maxlength')){
+      <p class="error">Password must be at most 12 characters</p>
+    }
+    @if(form.get('password')?.getError('mustContainQuestionMark')){
+      <p class="error">Password must contain a question mark</p>
+    }
+  }
+</form>
